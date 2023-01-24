@@ -32,6 +32,10 @@ github_username:  fextivity
 # theme: minima
 plugins:
   - jekyll-feed
+  - jemoji
+
+# emoji:
+  # src: "/assets/images/emojis"
 
 # Exclude from processing.
 # The following items will not be processed, by default.

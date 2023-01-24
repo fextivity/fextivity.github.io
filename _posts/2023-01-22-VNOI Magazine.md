@@ -22,5 +22,5 @@ Em cảm ơn bên VNOI đã cho em tham gia vào dự án này ạ :bowing: :bow
 <figcaption style="text-align:center">Ảnh bìa đẹp không nè</figcaption>
 </figure>
 
-[message]: /assets/images/Screenshot%20from%202023-01-22%2023-27-21.png
+[message]: /assets/images/cuu%20tap%20chi%20vnoi.png
 [magazine]: https://oj.vnoi.info/post/428-vnoi-magazine-2023
