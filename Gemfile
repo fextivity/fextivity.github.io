@@ -32,6 +32,8 @@ gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 # do not have a Java counterpart.
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
-gem "webrick", "~> 1.7"
+gem "webrick", "~> 1.7" # Stupid something github something
 
-gem 'jemoji'
+gem "jemoji"
+
+gem "activesupport", ">= 6.1.7.1" # https://github.com/advisories/GHSA-j6gc-792m-qgm2
