@@ -36,4 +36,5 @@ gem "webrick", "~> 1.7" # Stupid something github something
 
 gem "jemoji"
 
-gem "activesupport", ">= 6.1.7.1" # https://github.com/advisories/GHSA-j6gc-792m-qgm2
+# I love Ruby very much
+# gem "activesupport", "~> 6.1.7.1" # https://github.com/advisories/GHSA-j6gc-792m-qgm2
