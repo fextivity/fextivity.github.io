@@ -1,0 +1,26 @@
+# Typst build output
+build/
+*.pdf
+
+# Node modules (if using tools)
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+out/
+
+# tybook output
+book/
+typst-watch-test*.log

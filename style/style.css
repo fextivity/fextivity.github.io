@@ -1,0 +1,359 @@
+* {
+    --fg-color: black;
+    --bg-color: white;
+
+    --code-bg-color: white;
+    --inline-code-bg: #f4f4f4;
+    --code-box-shadow:  0 4px 12px #59556533;
+
+    --link-color: #321bd1;
+    --link-visited-color: #4c15b1;
+
+
+    --dim-color: #777;
+
+    --sidebar-fg: black;
+    --sidebar-bg: #fafafa;
+
+    --quote-bg: hsl(197, 37%, 96%);
+    --quote-border: hsl(197, 37%, 91%);
+
+
+    --mono-font: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace;
+    --code-font-size: 0.875em; /* please adjust the ace font size accordingly in editor.js */
+}
+
+@media (prefers-color-scheme: dark) {
+    * {
+        --fg-color: white;
+        --bg-color: hsl(210, 25%, 8%);
+
+        --code-bg-color: #191f26;
+        --inline-code-bg: var(--code-bg-color);
+        --code-box-shadow:  none;
+
+        --link-color: #8989ff;
+        --link-visited-color: #b389ff;
+
+        --dim-color: #777;
+
+        --sidebar-fg: white;
+        --sidebar-bg: #14191f;
+
+        --quote-bg: hsl(226, 15%, 17%);
+        --quote-border: hsl(226, 15%, 22%);
+    }
+}
+
+* {
+    --sidebar-active: var(--link-color);
+}
+
+
+
+body {
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    /* grid-template-rows: [header-left] 30px [header-right main-left] 1fr [main-right footer-left] 30px [footer-right]; */
+    grid-template-columns: min-content 1fr;
+    grid-template-areas: "nav head" "nav main" "nav foot"  "nav nav-buttons";
+    font-family: "Open Sans", sans-serif;
+}
+
+/* Footnotes */
+body > section {
+    max-width: 750px;
+    width: 100%;
+    grid-area: foot;
+    margin: 0 auto;
+}
+
+blockquote {
+    padding: 20px 20px;
+    margin: 20px 0;
+    color: var(--fg);
+    background-color: var(--quote-bg);
+    border-block-start: .1em solid var(--quote-border);
+    border-block-end: .1em solid var(--quote-border);
+
+    p:first-of-type {
+        margin-top: 0;
+    }
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+a:visited {
+    color: var(--link-visited-color)
+}
+
+
+.clickable {
+    cursor: pointer;
+}
+
+.menu-bar {
+    grid-area: head;
+
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-color);
+    font-size: 1.4em;
+
+    display: flex;
+    overflow: hidden;
+
+    .clickable {
+        color: var(--dim-color);
+        padding: 0.5em;
+    }
+
+    h1 {
+        padding: 0.5em;
+        display: inline-block;
+        font-weight: 200;
+        font-size: 1em;
+        line-height: var(--menu-bar-height);
+        text-align: center;
+        margin: 0;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex-grow: 1
+    }
+}
+
+.sidebar {
+    grid-area: nav;
+
+    position: sticky;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overscroll-behavior-y: contain;
+    overflow: scroll;
+
+    font-size: 0.875em;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-fg);
+
+
+    padding: 1em;
+
+    line-height: 1.5em;
+
+    a {
+        color: var(--sidebar-fg);
+        text-decoration: none;
+    }
+
+    .active-page, a:hover {
+        color: var(--sidebar-active);
+    }
+
+    li {
+        margin-block-start: 0.5em;
+        list-style: none outside none;
+        white-space: nowrap;
+    }
+    .chapter-title {
+        list-style: none outside none;
+        line-height: 2.2em;
+    }
+
+    > ol {
+        padding: 0;
+        margin: 0;
+
+        ol {
+            padding-left: 1em;
+        }
+    }
+}
+
+/* The sidebar toggling logic */
+#sidebar-visible-slim, #sidebar-visible-wide {
+    display: none;
+}
+@media (min-width: 900px) {
+    .sidebar-button-slim {
+        display: none;
+    }
+
+    #sidebar-visible-wide:checked ~ .sidebar {
+        width: 0;
+        overflow: hidden;
+        padding: 0;
+    }
+}
+@media (max-width: 900px) {
+    .sidebar-button-wide {
+        display: none;
+    }
+
+    #sidebar-visible-slim:not(:checked) ~ .sidebar {
+        width: 0;
+        overflow: hidden;
+        padding: 0;
+    }
+}
+
+.nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: nav-buttons;
+
+    max-width: 750px;
+    margin: 0px auto;
+    width: 100%;
+
+    .spacer {
+        flex-grow: 1;
+    }
+
+    a {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-template-areas: "icon title" "icon subtitle";
+
+        padding: 1em;
+        border-radius: 0.5em;
+        border: 1px solid var(--dim-color);
+        margin: 1em 1em;
+        color: var(--fg-color);
+
+        .button-icon {
+            padding-right: 0.5em;
+            font-size: 2rem;
+            grid-area: icon;
+        }
+        .button-title {
+            grid-area: title;
+        }
+        .button-subtitle {
+            grid-area: subtitle;
+            font-size: 0.8em;
+            color: var(--dim-color)
+        }
+    }
+    a:last-of-type {
+        grid-template-areas: "title icon" "subtitle icon";
+        grid-template-columns: 1fr min-content;
+        .button-icon {
+            padding-right: 0em;
+            padding-left: 0.5em;
+        }
+        .button-title, .button-subtitle {
+            text-align: right;
+        }
+    }
+    a:hover {
+        color: var(--link-color)
+    }
+}
+
+@media (max-width: 500px) {
+    .nav-buttons a {
+        width: 100%;
+    }
+}
+
+
+main {
+    max-width: 750px;
+    margin: 0 auto;
+    grid-area: main;
+}
+
+:not(pre) > code {
+    border-radius: 0.3em;
+    padding: 0.2em;
+    background-color: var(--inline-code-bg)
+}
+
+.code-container {
+    width: 100%;
+    display: grid;
+}
+
+code {
+    font-family: var(--mono-font) !important;
+    font-weight: 500;
+}
+
+pre {
+    overflow-x: auto;
+    background-color: var(--code-bg-color);
+    border-radius: 6px;
+    box-shadow: var(--code-box-shadow);
+    padding: 1rem;
+
+    code {
+        font-size: var(--code-font-size);
+        direction: ltr !important;
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+    pre::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--border-radius);
+        padding: 2px;
+        background: var(--outline-gradient);
+        mask: conic-gradient(#000 0 0) content-box,conic-gradient(#000 0 0);
+            mask-composite: add, add;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+}
+
+
+.content {
+    padding: 20pt;
+
+    img {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        overflow: scroll;
+    }
+
+    p {
+        line-height: 1.5em;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        a {
+            color: var(--fg-color);
+        }
+    }
+}
+
+:target {
+    scroll-margin-top: 150px;
+}
+
+/* Fixes weird vertical space */
+math{font-family:STIX}
+
+.footnote-definition {
+    font-size: 0.9em;
+
+    > li {
+        margin-bottom: 0.5em;
+    }
+}
